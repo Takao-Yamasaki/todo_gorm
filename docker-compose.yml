@@ -1,0 +1,24 @@
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/go/src/todo_gorm
+    tty: true
+    stdin_open: true
+    links:
+      - db
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+    ports:
+      - "3306:3306"
+

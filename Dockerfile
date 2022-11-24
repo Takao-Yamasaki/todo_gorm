@@ -6,8 +6,6 @@ WORKDIR /go/src/todo_gorm
 
 COPY . /go/src/todo_gorm/
 
-VOLUME /go/src/todo_gorm/
-
 RUN go mod download
 
 EXPOSE 8080
