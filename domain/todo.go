@@ -6,6 +6,7 @@ import (
 
 type Todo struct {
 	gorm.Model
+	ID       int `gorm:"primary_key"`
 	Text     string
 	Status   Status
 	Deadline int

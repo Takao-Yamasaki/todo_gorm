@@ -23,6 +23,9 @@ func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*.html")
 
+	//ここを直す
+	infra.DBInit()
+
 	router.GET("/", func(c *gin.Context) {
 		todos := infra.DBRead()
 		c.HTML(200, "index.html", gin.H{
@@ -54,4 +57,6 @@ func main() {
 		infra.DBCreate(todo)
 		c.Redirect(302, "/")
 	})
+
+	router.Run(":8080")
 }

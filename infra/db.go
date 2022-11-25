@@ -25,7 +25,6 @@ func connectDB() *sql.DB {
 // DBの初期化
 func DBInit() *gorm.DB {
 	sqlDB := connectDB()
-	defer sqlDB.Close()
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		Conn: sqlDB,
 	}), &gorm.Config{})
@@ -33,6 +32,7 @@ func DBInit() *gorm.DB {
 		fmt.Errorf("could not open database")
 	}
 	db.AutoMigrate(&domain.Todo{})
+	// defer sqlDB.Close()
 	return db
 }
 
