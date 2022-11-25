@@ -7,7 +7,7 @@ import (
 )
 
 // DBの初期化
-func dbInit() *gorm.DB {
+func DBInit() *gorm.DB {
 	db, err := gorm.Open("mysql", "root:@tcp(localhost:3306)/todo_gorm?parseTime=true")
 	if err != nil {
 		fmt.Errorf("cannot open database")
@@ -17,7 +17,7 @@ func dbInit() *gorm.DB {
 }
 
 // DBの作成処理
-func dbCreate(todo domain.Todo) {
+func DBCreate(todo domain.Todo) {
 	db, err := gorm.Open("mysql", "root:@tcp(localhost:3306)/todo_gorm?parseTime=true")
 	if err != nil {
 		fmt.Errorf("cannot open database")
@@ -26,7 +26,7 @@ func dbCreate(todo domain.Todo) {
 } 
 
 //DBの読込処理
-func dbRead(id ...int) []domain.Todo {
+func DBRead(id ...int) []domain.Todo {
 	db, err := gorm.Open("mysql", "root:@tcp(localhost:3306)/todo_gorm?parseTime=true")
 	if err != nil {
 		fmt.Errorf("cannot open database")
@@ -37,7 +37,7 @@ func dbRead(id ...int) []domain.Todo {
 }
 
 //DBの更新処理
-func dbUpdate(id int, text string, status domain.Status, deadline int) domain.Todo {
+func DBUpdate(id int, text string, status domain.Status, deadline int) domain.Todo {
 	db, err := gorm.Open("mysql", "root:@tcp(localhost:3306)/todo_gorm?parseTime=true")
 	if err != nil {
 		fmt.Errorf("cannot open database")
@@ -52,7 +52,7 @@ func dbUpdate(id int, text string, status domain.Status, deadline int) domain.To
 } 
 
 //DBの削除処理
-func dbDelete(id int) {
+func DBDelete(id int) {
 	db, err := gorm.Open("mysql", "root:@tcp(localhost:3306)/todo_gorm?parseTime=true")
 	if err != nil {
 		fmt.Errorf("cannot open database")
