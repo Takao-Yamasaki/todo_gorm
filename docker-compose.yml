@@ -14,6 +14,8 @@ services:
       - db
   db:
     image: mysql:5.7
+    # M1のCPUは、linux/arm64/v8を使用しているため、M1の場合はプラットフォームを指定
+    platform: linux/x86_64
     volumes:
       - ./tmp/db:/var/lib/mysql
     environment:
