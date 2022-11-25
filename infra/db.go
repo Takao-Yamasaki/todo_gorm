@@ -1,10 +1,25 @@
 package infra
 
 import (
+	"database/sql"
 	"fmt"
-	"github.com/jinzhu/gorm"
+	"os"
 	"todo_gorm/domain"
+
+	"github.com/jinzhu/gorm"
 )
+
+func connectDB() *sql.DB {
+	user := os.Getenv("MYSQL_USER")
+	password := os.Getenv("MySQL_PASSWORD")
+	database := os.Getenv("MYSQL_DATABASE")
+	host := os.Getenv("MYSQL_HOST")
+	sqlDB, err := sql.Open("mysql", user+":"+password+"@tcp("+host+")/"+database+"?parseTime=true&loc=Local")
+	if err != nil {
+		fmt.Errorf("cannot open database")
+	}
+	return sqlDB
+}
 
 // DBの初期化
 func DBInit() *gorm.DB {

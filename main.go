@@ -1,28 +1,38 @@
 package main
 
 import (
+	"log"
 	"net/http"
 	"strconv"
-	"todo_gorm/infra"
 	"todo_gorm/domain"
+	"todo_gorm/infra"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
+func Env_load() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+}
+
 func main() {
+	Env_load()
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*.html")
-	
+
 	db := infra.DBInit()
 	defer db.Close()
-	
+
 	router.GET("/", func(c *gin.Context) {
 		todos := infra.DBRead()
 		c.HTML(200, "index.html", gin.H{
 			"todos": todos,
 		})
 	})
-	
+
 	//POSTの処理
 	router.POST("/new", func(c *gin.Context) {
 		text := c.PostForm("text")
