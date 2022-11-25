@@ -23,9 +23,6 @@ func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*.html")
 
-	db := infra.DBInit()
-	defer db.Close()
-
 	router.GET("/", func(c *gin.Context) {
 		todos := infra.DBRead()
 		c.HTML(200, "index.html", gin.H{
@@ -44,6 +41,7 @@ func main() {
 		status := domain.Status(id)
 		rawTime := c.PostForm("deadline")
 		deadline, err := strconv.Atoi(rawTime)
+
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		}
@@ -51,6 +49,7 @@ func main() {
 
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			return
 		}
 		infra.DBCreate(todo)
 		c.Redirect(302, "/")
