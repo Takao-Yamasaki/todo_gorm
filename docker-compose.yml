@@ -19,8 +19,9 @@ services:
     volumes:
       - ./tmp/db:/var/lib/mysql
     environment:
+      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: root
+      MYSQL_DATABASE: todo_gorm
+      MYSQL_HOST: todo_gorm_db
     ports:
       - "3306:3306"
-
